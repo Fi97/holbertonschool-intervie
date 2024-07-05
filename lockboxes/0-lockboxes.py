@@ -1,11 +1,27 @@
-def canUnlockAll(boxes): 
-    Keys = [0]
-    for key in Keys:
-        for boxKey in boxes[key]:
-            if boxKey not in Keys and boxKey < len(boxes):
-                Keys.append(boxKey)
-    if len(Keys) == len(boxes):
-        return True
-    return False
-      
+
+
+def canUnlockAll(boxes):
+    
+    canUnlockAll = False
+    keys = {0: True}
+    n_boxes = len(boxes)
+    while(True):
+
+        n_keys = len(keys)
+
+        for i in range(len(boxes)):
+            if boxes[i] and keys.get(i, False):
+                for j in boxes[i]:
+                    if j < n_boxes:
+                        keys[j] = True
+                    boxes[i] = None
+
+        if not(len(keys) > n_keys):
+            break
+
+    if n_keys == len(boxes):
+        canUnlockAll = True
+
+    return canUnlockAll
+
 
